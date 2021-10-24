@@ -1,0 +1,22 @@
+import React from 'react';
+import PlaidLink from '@burstware/expo-plaid-link';
+
+import * as GlobalVariableContext from './config/GlobalVariableContext';
+export { useValues, useSetValue } from './config/GlobalVariableContext';
+
+export const ExpoPlaidLink = ({ LinkToken, navigation }) => {
+  //Notice that the props are destructured { LinkToken,navigation }
+  const variables = GlobalVariableContext.useValues();
+  const setVariable = GlobalVariableContext.useSetValue();
+  return (
+    <PlaidLink
+      linkToken = {variables.LinkToken}
+      onEvent={event => console.log(event)}
+      onExit={exit => console.log(exit)}
+      onSuccess={success => {
+        setVariable({ key: 'PublicToken', value: success.publicToken }); // Remove the spa in from key: 'AccessToken'
+        navigation.navigate('PlaidLinkSuccessScreen'); // Remove the Spaces from the screen name - this name of the destination screeen.
+      }}
+    />
+  );
+};
