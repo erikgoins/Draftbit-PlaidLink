@@ -14,24 +14,27 @@ export const ExpoPlaidLink = ({ LinkToken, navigation }) => {
       onEvent={event => console.log(event)}
       onExit={exit => console.log(exit)}
       onSuccess={success => {
-        setVariable({ key: 'PublicToken', value: success.publicToken }); // Remove the spa in from key: 'AccessToken'
+        setVariable({ key: 'PublicToken', value: success.publicToken }); //sets the PublicToken variable in the DraftBit app
        
         //Call Plaid Public Token Exchange: PublicToken -> AccessToken
-        fetch('https://sandbox.plaid.com/item/public_token/exchange', {
+        return fetch('https://sandbox.plaid.com/item/public_token/exchange', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
            },
-           body: JSON.stringify({
+           body: JSON ({
             "client_id": "xxxxxx",
             "secret": "xxxxxx",
-            "public_token": { PublicToken }
+            "public_token": success.publicToken
            })
+           .then setVariable({ key: 'AccessToken', value: access_token });
+          })
+          .catch((error) => {
+            console.error(error);  
          });
-        
-        
-        navigation.navigate('PlaidLinkSuccessScreen'); // Remove the Spaces from the screen name - this name of the destination screeen.
+         
+        navigation.navigate('PlaidLinkSuccessScreen'); //navigation away from the PlaidLink screen
       }}
     />
   );
