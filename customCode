@@ -15,6 +15,22 @@ export const ExpoPlaidLink = ({ LinkToken, navigation }) => {
       onExit={exit => console.log(exit)}
       onSuccess={success => {
         setVariable({ key: 'PublicToken', value: success.publicToken }); // Remove the spa in from key: 'AccessToken'
+       
+        //Call Plaid Public Token Exchange: PublicToken -> AccessToken
+        fetch('https://sandbox.plaid.com/item/public_token/exchange', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+           },
+           body: JSON.stringify({
+            "client_id": "xxxxxx",
+            "secret": "xxxxxx",
+            "public_token": { PublicToken }
+           })
+         });
+        
+        
         navigation.navigate('PlaidLinkSuccessScreen'); // Remove the Spaces from the screen name - this name of the destination screeen.
       }}
     />
