@@ -24,8 +24,8 @@ export const ExpoPlaidLink = ({ LinkToken, navigation }) => {
             'Content-Type': 'application/json'
          },
          body: ({
-           "client_id": "601032ab54708300101bcf78",
-           "secret": "76729a82927b62e1719fc3f8c9bcf4",
+           "client_id": "[PLAID CLIENT ID]",
+           "secret": "[PLAID SECRET KEY]",
            "public_token": success.publicToken
           }),
         })
