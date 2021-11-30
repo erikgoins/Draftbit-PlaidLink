@@ -5,7 +5,15 @@ This is the project code we use used to integrate Plaid Link with Draftbit, whic
 
 First, you should be familiar with Plaid Link and have the relevant API keys and API calls setup - https://plaid.com/docs/link/
 
-Secondly, you can paste the custom code into your Draftbit Project
+The way this works is: 
+When the user wants to connect their account, we call the API to generate the public_token.
+This is passed to the custom component.
+When the user completes the process, we store the access_token as a variable. You'll need to call Plaid to exchange this for the permanent access_token.
+
+Secondly, you can paste the custom code text into your Draftbit Project.
+
+Third, add the @burstware/expo-plaid-link package to your custom code packages. We're using version 1.0.5 (as of 11/30/2021) because the latest version is not rendering in expo.
+![image](https://user-images.githubusercontent.com/15810675/144015499-ab73006c-8ba8-40e1-af7b-fd86d8588a97.png)
 
 Additionally, you need the following:
 
@@ -21,6 +29,4 @@ LinkToken = {props.route?.params?.LinkToken}
 navigation={props.navigation}
 />
 
-To integrate this, when the user wants to connect their account, we call the API to generate the public_token.
-This is passed to the custom component.
-When the user completes the process, we store the access_token as a variable. You'll need to call Plaid to exchange this for the permanent access_token.
+Lastly, this will route the user to a screen named 'Plaid Link 2'. You can change the name to any screen of your choice.
