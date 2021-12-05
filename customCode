@@ -1,45 +1,26 @@
 import React from 'react';
+import { Text } from 'react-native';
+
+//Import plaid link package
 import PlaidLink from '@burstware/expo-plaid-link';
 
 //Import app variables
 import * as GlobalVariableContext from './config/GlobalVariableContext';
 export { useValues, useSetValue } from './config/GlobalVariableContext';
 
-export const ExpoPlaidLink = ({ LinkToken, navigation }) => {
+//Plaid Link component
+export const ExpoPlaidLink = ({ LinkToken, navigation, access_token }) => {
   const variables = GlobalVariableContext.useValues();
   const setVariable = GlobalVariableContext.useSetValue();
+
   return (
     <PlaidLink
-      linkToken = {variables.LinkToken}
+      linkToken={variables.LinkToken}
       onEvent={event => console.log(event)}
       onExit={exit => console.log(exit)}
       onSuccess={success => {
-        setVariable({ key: 'PublicToken', value: success.publicToken }); //sets the PublicToken variable in the DraftBit app. Not actually needed.
-       
-        //Call Plaid Public Token Exchange: PublicToken -> AccessToken
-        fetch("https://sandbox.plaid.com/item/public_token/exchange", {
-         method: "POST",
-         headers: {
-        Accept: 'application/json',
-            'Content-Type': 'application/json'
-         },
-         body: ({
-           "client_id": "[PLAID CLIENT ID]",
-           "secret": "[PLAID SECRET KEY]",
-           "public_token": success.publicToken
-          }),
-        })
-         .then(response => response.json())
-         .then(response => {
-          console.log(response.content);
-          setVariable({ key: 'AccessToken', value: access_token })
-         })
-         .catch(err => {
-           console.log(err);
-         });
-
-    navigation.navigate('PlaidLinkSuccessScreen'); //navigation away from the PlaidLink screen
-    }}
+        console.log(success);
+        setVariable({ key: 'PublicToken', value: success.publicToken }); //set the PublicToken variable
+        navigation.navigate('Profile'); //navigation away from the PlaidLink screen
+      }}
     />
-  );
-};
