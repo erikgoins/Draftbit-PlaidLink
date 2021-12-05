@@ -24,3 +24,4 @@ export const ExpoPlaidLink = ({ LinkToken, navigation, access_token }) => {
         navigation.navigate('Profile'); //navigation away from the PlaidLink screen
       }}
     />
+)}
