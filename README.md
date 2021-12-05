@@ -5,16 +5,16 @@ This is the project code we use used to integrate Plaid Link with Draftbit, whic
 
 For reference, Plaid maintains a [React Native repo](https://github.com/plaid/react-native-plaid-link-sdk), but it isn't Expo compatible. For this, we use [Burstware Expo Plaid Link](https://github.com/burstware/expo-plaid-link)
 
-##How Plaid Link in Draftbit works
+## How Plaid Link in Draftbit works
 1. When the user wants to connect their account, we call the Plaid API to generate the public_token.
 2. This is passed to the custom component via a stored variable.
 3. When the user completes the Plaid Link process, it returns an access_token which we store as a variable.
 
-###Creating the public_token
+### Creating the public_token
 We used a button asking the user if they want to link more accounts. This calls the Plaid API returning the public_token
 ![image](https://user-images.githubusercontent.com/15810675/144749431-5d23de7f-7b3e-4893-a75b-feecd7f04cac.png)
 
-###Passing the public_token to the custom code
+### Passing the public_token to the custom code
 First, @burstware/expo-plaid-link package to your custom code packages. 
 
 ![image](https://user-images.githubusercontent.com/15810675/144015499-ab73006c-8ba8-40e1-af7b-fd86d8588a97.png)
